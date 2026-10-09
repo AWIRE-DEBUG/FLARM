@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLARM Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+<base target="_blank">
+</head>
+<body>
+
+<!-- ═══════ LOGIN ═══════ -->
+<div class="login-wrap" id="loginWrap">
+  <form class="login-card" id="loginForm">
+  <!-- FLARM Logo -->
+  <img
+    src="images/LOGO.jpeg"
+    alt="FLARM logo"
+    class="login-logo"
+  >
+
+  <h1>FLARM Admin</h1>
+  <p>Flarm Global Resources Ltd. — Dashboard</p>
+
+  <!-- Admin Email -->
+  <label for="adminEmail">Email Address</label>
+  <input
+    type="email"
+    id="adminEmail"
+    name="email"
+    placeholder="Enter admin email"
+    autocomplete="username"
+    required
+  >
+
+  <!-- Admin Password -->
+  <label for="adminPass">Password</label>
+  <input
+    type="password"
+    id="adminPass"
+    name="password"
+    placeholder="Enter admin password"
+    autocomplete="current-password"
+    required
+  >
+
+  <button class="btn" type="submit">Sign In 🔐</button>
+
+  <p class="login-err" id="loginErr"></p>
+</form>
+
+<!-- ═══════ DASHBOARD ═══════ -->
+<div class="admin" id="adminApp" hidden>
+  <aside class="sidebar">
+    <div class="side-logo">
+      <img src="images/LOGO.jpeg" alt="FLARM logo">
+      <span>FLARM <small>ADMIN</small></span>
+    </div>
+    <nav class="side-nav">
+      <button class="side-link active" data-tab="dash">📊 Dashboard</button>
+      <button class="side-link" data-tab="products">📦 Products</button>
+      <button class="side-link" data-tab="orders">🧾 Orders <span class="pill" id="pendingPill" hidden></span></button>
+      <button class="side-link" data-tab="settings">⚙️ Settings</button>
+      <button class="side-link" data-tab="homecontent">🏠 Homepage</button>
+    </nav>
+    <a class="side-link store-link" href="index.html" target="_blank">🛍️ View Store ↗</a>
+    <button type="button" class="side-link logout" id="logoutBtn">🚪 Logout</button>
+  </aside>
+
+  <main class="main">
+    <!-- ── DASHBOARD TAB ── -->
+    <section class="tab active" id="tab-dash">
+      <h2>📊 Sales Overview</h2>
+      <div class="stat-grid">
+        <div class="stat-card"><span class="stat-num" id="statToday">0</span><span>Today's Orders</span></div>
+        <div class="stat-card"><span class="stat-num" id="statWeek">0</span><span>This Week</span></div>
+        <div class="stat-card"><span class="stat-num" id="statMonth">0</span><span>This Month</span></div>
+        <div class="stat-card"><span class="stat-num" id="statTotal">0</span><span>Total Orders</span></div>
+      </div>
+      <h3 style="margin:1.8rem 0 .8rem">Orders by Status</h3>
+      <div class="status-bars" id="statusBars"></div>
+      <h3 style="margin:1.8rem 0 .8rem">Recent Activity</h3>
+      <div class="activity" id="activityLog"></div>
+    </section>
+
+    <!-- ── PRODUCTS TAB ── -->
+    <section class="tab" id="tab-products">
+      <div class="tab-head">
+        <h2>📦 Products</h2>
+        <button class="btn" id="addProductBtn">+ Add Product</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Form</th><th>Availability</th><th>Actions</th></tr></thead>
+          <tbody id="productRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── ORDERS TAB ── -->
+    <section class="tab" id="tab-orders">
+      <div class="tab-head"><h2>🧾 Customer Orders</h2></div>
+      <div class="order-tools">
+        <input type="text" id="orderSearch" placeholder="🔍 Search by order #, name, phone…">
+        <select id="orderStatusFilter">
+          <option value="">All Statuses</option>
+          <option>Pending</option><option>Confirmed</option><option>Processing</option>
+          <option>Out for Delivery</option><option>Delivered</option><option>Cancelled</option>
+        </select>
+      </div>
+      <div id="orderList"></div>
+    </section>
+
+    <!-- ── SETTINGS TAB ── -->
+    <section class="tab" id="tab-settings">
+      <h2>⚙️ Website Settings</h2>
+      <form class="settings-form" id="settingsForm">
+        <label>Email address<input type="email" id="setEmail"></label>
+        <label>Phone number<input type="tel" id="setPhone"></label>
+        <label>WhatsApp number (with country code, digits only)<input type="tel" id="setWhatsapp"></label>
+        <label>Office / shop location<textarea id="setLocation" rows="2"></textarea></label>
+        <button class="btn" type="submit">💾 Save Settings</button>
+        <p class="save-status" id="settingsStatus"></p>
+      </form>
+    </section>
+
+    <!-- ── HOMEPAGE TAB ── -->
+    <section class="tab" id="tab-homecontent">
+      <h2>🏠 Homepage Content</h2>
+      <form class="settings-form" id="homeForm">
+        <label>Hero headline<input type="text" id="setHeroTitle"></label>
+        <label>Hero supporting text<textarea id="setHeroSub" rows="3"></textarea></label>
+        <button class="btn" type="submit">💾 Save Homepage</button>
+        <p class="save-status" id="homeStatus"></p>
+      </form>
+    </section>
+  </main>
+</div>
+
+<!-- ═══════ PRODUCT MODAL ═══════ -->
+<div class="modal" id="pModal" hidden>
+  <div class="modal-card">
+    <button class="m-close" data-close="pModal">✖</button>
+    <h3 id="pModalTitle">Add Product</h3>
+    <form id="productForm">
+      <input type="hidden" id="pId">
+      <label>Product name *<input type="text" id="pName" required></label>
+      <label>Category *<input type="text" id="pCategory" list="catList" required><datalist id="catList"></datalist></label>
+      <label>Short description *<textarea id="pDesc" rows="3" required></textarea></label>
+      <label>Form / size (e.g. Herbal Capsules, Herbal Tea)<input type="text" id="pForm"></label>
+      <label>Image — paste an image link OR upload a file
+        <input type="text" id="pImgUrl" placeholder="https://… (image link)">
+        <input type="file" id="pImgFile" accept="image/*">
+      </label>
+      <div class="img-preview"><img id="pImgPreview" alt="preview" hidden></div>
+      <label class="check"><input type="checkbox" id="pAvailable" checked> ✔ Product is available</label>
+      <button class="btn" type="submit">💾 Save Product</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

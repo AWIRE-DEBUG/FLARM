@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLARM GLOBAL RESOURCES LTD. — Natural Wellness</title>
+<meta name="description" content="Premium natural health products supporting healthier families and stronger communities.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<base target="_blank">
+</head>
+<body>
+
+<!-- ══════════ TOP BAR ══════════ -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span>🌿 Natural Wellness. Healthier Families. Stronger Communities.</span>
+    <span class="topbar-right">✔ 100% Natural Products &nbsp;•&nbsp; 🚚 Free Delivery (within service area)</span>
+  </div>
+</div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="header" id="header">
+  <div class="container header-inner">
+    <a href="#home" class="logo">
+      <!-- LOGO: replace src with your real FLARM logo image link -->
+      <img src="images/LOGO.jpeg" alt="FLARM GLOBAL RESOURCES LTD. logo">
+      <span class="logo-text">FLARM <small>GLOBAL RESOURCES LTD.</small></span>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="#home" class="nav-link active" data-nav="home">Home</a>
+      <a href="#products" class="nav-link" data-nav="products">Products</a>
+      <a href="#about" class="nav-link" data-nav="about">About Us</a>
+      <a href="#health" class="nav-link" data-nav="health">Health &amp; Wellness</a>
+      <a href="#contact" class="nav-link" data-nav="contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="searchToggle" aria-label="Search products">🔍</button>
+      <button class="icon-btn cart-btn" id="cartToggle" aria-label="Open cart">🛒<span class="cart-count" id="cartCount">0</span></button>
+      <a href="#" class="whatsapp-btn" id="whatsappBtn" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" class="mobile-link">Home</a>
+  <a href="#products" class="mobile-link">Products</a>
+  <a href="#about" class="mobile-link">About Us</a>
+  <a href="#health" class="mobile-link">Health &amp; Wellness</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+  <a href="#track" class="mobile-link">📦 Track My Order</a>
+  <a href="#wishlist" class="mobile-link">❤️ My Favorites</a>
+</div>
+
+<main>
+<!-- ══════════ HERO ══════════ -->
+<section class="hero" id="home">
+  <div class="hero-bg-leaf leaf-1">🍃</div>
+  <div class="hero-bg-leaf leaf-2">🌿</div>
+  <div class="container hero-inner">
+    <div class="hero-text reveal">
+      <span class="hero-eyebrow">FLARM GLOBAL RESOURCES LTD.</span>
+      <h1 id="heroTitle">Natural Wellness. Healthier Families. Stronger Communities.</h1>
+      <p id="heroSub">We remain committed to delivering premium natural health products that support healthier families, stronger communities, and a better quality of life.</p>
+      <div class="hero-btns">
+        <a href="#products" class="btn btn-primary">🛒 Shop Products</a>
+        <a href="#about" class="btn btn-outline">Learn More</a>
+      </div>
+      <div class="hero-trust">
+        <span>✔ 100% Natural</span><span>✔ Quality Focused</span><span>✔ Community Driven</span>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <!-- HERO PRODUCT IMAGES: replace src links with your real FLARM product packshots -->
+      <img class="hero-img h1" src="images/L.jpeg" alt="FLARM natural herbal product">
+      <img class="hero-img h2" src="images/P.jpeg" alt="FLARM herbal capsules">
+      <img class="hero-img h3" src="images/M.jpeg" alt="FLARM herbal tea">
+      <div class="hero-badge">Pure<br>Natural<br>Goodness</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PRODUCTS ══════════ -->
+<section class="section products-section" id="products">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">OUR PRODUCTS</span>
+        <h2>Powerful Natural Solutions for Your Health</h2>
+      </div>
+      <a href="#track" class="link-arrow">📦 Track My Order →</a>
+    </div>
+
+    <!-- Search & filter toolbar -->
+    <div class="toolbar reveal" id="toolbar">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 Search products by name…" aria-label="Search products">
+      </div>
+      <select id="categoryFilter" aria-label="Filter by category"><option value="">All Categories</option></select>
+      <select id="availFilter" aria-label="Filter by availability">
+        <option value="">All Availability</option>
+        <option value="available">✔ Available</option>
+        <option value="soldout">✖ Sold Out</option>
+      </select>
+      <button class="btn btn-ghost" id="clearFilters">Clear Filters</button>
+    </div>
+
+    <div class="product-grid" id="productGrid"><!-- rendered by JS --></div>
+    <p class="no-results" id="noResults" hidden>No products match your search. <button class="link-btn" id="clearFilters2">Clear filters</button></p>
+  </div>
+</section>
+
+<!-- ══════════ WHY CHOOSE ══════════ -->
+<section class="section why-section" id="health">
+  <div class="container">
+    <h2 class="center reveal">More Than Just Products — It's a Healthier Tomorrow</h2>
+    <p class="center-sub reveal">Why families across Nigeria choose FLARM</p>
+    <div class="why-grid">
+      <div class="why-card reveal"><div class="why-icon">🌿</div><h3>Natural Wellness</h3><p>Premium natural health products.</p></div>
+      <div class="why-card reveal"><div class="why-icon">✅</div><h3>Quality Focused</h3><p>Products designed around wellness and everyday health needs.</p></div>
+      <div class="why-card reveal"><div class="why-icon">👨‍👩‍👧‍👦</div><h3>Community</h3><p>Supporting healthier families and stronger communities.</p></div>
+    </div>
+    <div class="health-note reveal">
+      <strong>A note on your health:</strong> FLARM natural products support everyday wellness. They are not a substitute for professional medical advice, diagnosis or treatment. Always consult a qualified healthcare provider about any health condition.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ABOUT ══════════ -->
+<section class="section about-section" id="about">
+  <div class="container about-inner">
+    <div class="about-img reveal">
+      <!-- ABOUT IMAGE: replace with your real office/team photo -->
+      <img src="images/base.jpeg" alt="FLARM GLOBAL RESOURCES LTD. office">
+    </div>
+    <div class="about-text reveal">
+      <span class="eyebrow">ABOUT FLARM GLOBAL</span>
+      <h2>Our Commitment</h2>
+      <p>FLARM GLOBAL RESOURCES LTD. is a Nigerian natural wellness company devoted to one simple mission: helping families live healthier, fuller lives. We remain committed to delivering premium natural health products that support healthier families, stronger communities, and a better quality of life.</p>
+      <ul class="about-list">
+        <li>🌱 <strong>Natural Ingredients</strong> — wellness rooted in nature</li>
+        <li>🛡️ <strong>Trusted Quality</strong> — carefully produced health products</li>
+        <li>🤝 <strong>Better Health for All</strong> — wellness within reach of every family</li>
+      </ul>
+      <a href="#products" class="btn btn-primary">Explore Our Products →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TRACK ORDER VIEW ══════════ -->
+<section class="section page-view" id="trackView" hidden>
+  <div class="container narrow">
+    <span class="eyebrow">ORDER TRACKING</span>
+    <h2>Track My Order</h2>
+    <p class="muted">Enter your order number and the phone number you used when ordering.</p>
+    <div class="track-form">
+      <input type="text" id="trackCode" placeholder="Order number (e.g. FLARM-4821)" aria-label="Order number">
+      <input type="tel" id="trackPhone" placeholder="Phone number" aria-label="Phone number">
+      <button class="btn btn-primary" id="trackBtn">Track Order</button>
+    </div>
+    <div id="trackResult"></div>
+    <a href="#home" class="link-arrow">← Back to store</a>
+  </div>
+</section>
+
+<!-- ══════════ WISHLIST VIEW ══════════ -->
+<section class="section page-view" id="wishlistView" hidden>
+  <div class="container">
+    <span class="eyebrow">MY FAVORITES</span>
+    <h2>❤️ Saved Products</h2>
+    <div class="product-grid" id="wishlistGrid"></div>
+    <p class="muted" id="wishlistEmpty" hidden>You haven't saved any products yet. Tap the ❤️ on any product to save it here.</p>
+    <a href="#home" class="link-arrow">← Back to store</a>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section class="section contact-section" id="contact">
+  <div class="container">
+    <div class="section-head reveal"><div><span class="eyebrow">CONTACT US</span><h2>We're Here to Help</h2></div></div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="contact-card"><span>📞</span><div><h4>Phone</h4><p id="contactPhone">+234 810 123 4567</p></div></div>
+        <div class="contact-card"><span>💬</span><div><h4>WhatsApp</h4><p id="contactWhatsapp">Chat with us on WhatsApp</p></div></div>
+        <div class="contact-card"><span>✉️</span><div><h4>Email</h4><p id="contactEmail">flarmnaturalhealthcare@gmail.com</p></div></div>
+        <div class="contact-card"><span>📍</span><div><h4>Location</h4><p id="contactLocation">Shop 67 Adamashingba Sport Complex, opposite Recreation Club, Sabo Road, Ibadan</p></div></div>
+        <div class="map-placeholder reveal">
+          <iframe title="FLARM location map" src="https://www.google.com/maps?q=Adamashingba+Sport+Complex+Sabo+Road+Ibadan&output=embed" loading="lazy"></iframe>
+        </div>
+      </div>
+      <form class="contact-form reveal" id="contactForm">
+        <h3>Send us a message</h3>
+        <input type="text" id="cfName" placeholder="Your name" required>
+        <input type="tel" id="cfPhone" placeholder="Phone number" required>
+        <input type="email" id="cfEmail" placeholder="Email (optional)">
+        <textarea id="cfMsg" rows="5" placeholder="Your message…" required></textarea>
+        <button type="submit" class="btn btn-primary">Send Message 💬</button>
+        <p class="form-status" id="contactStatus"></p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-logo">
+        <img src="images/LOGO.jpeg" alt="FLARM logo">
+        <span>FLARM <small>GLOBAL RESOURCES LTD.</small></span>
+      </div>
+      <p class="footer-desc">Natural Wellness. Healthier Families. Stronger Communities. Premium natural health products from Ibadan, Nigeria.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="#home">Home</a><a href="#products">Products</a><a href="#about">About Us</a>
+      <a href="#health">Health &amp; Wellness</a><a href="#contact">Contact</a><a href="#track">Track My Order</a>
+    </div>
+    <div>
+      <h4>Our Products</h4>
+      <div id="footerProducts"></div>
+    </div>
+    <div>
+      <h4>Stay Updated</h4>
+      <p>Get the latest product updates and health tips.</p>
+      <form class="newsletter" id="newsletterForm">
+        <input type="email" id="nlEmail" placeholder="Your email address" required>
+        <button class="btn btn-gold" type="submit">Subscribe</button>
+      </form>
+      <p class="form-status" id="nlStatus"></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Flarm Global Resources Ltd. All rights reserved. &nbsp;|&nbsp; Natural Wellness · Healthier Families · Stronger Communities</p>
+  </div>
+</footer>
+
+<!-- ══════════ CART DRAWER ══════════ -->
+<div class="overlay" id="overlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="drawer-head">
+    <h3>🛒 Your Cart <span class="cart-count-inline" id="cartCountDrawer">0</span></h3>
+    <button class="icon-btn" id="cartClose">✖</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="drawer-foot">
+    <div class="cart-total-row"><span>Total items</span><strong id="cartTotalItems">0</strong></div>
+    <button class="btn btn-primary btn-block" id="checkoutBtn">Proceed to Checkout →</button>
+    <button class="btn btn-ghost btn-block" id="cartWhatsApp">💬 Order via WhatsApp</button>
+  </div>
+</aside>
+
+<!-- ══════════ PRODUCT DETAIL MODAL ══════════ -->
+<div class="modal" id="productModal" hidden>
+  <div class="modal-card modal-lg">
+    <button class="modal-close" data-close="productModal">✖</button>
+    <div class="modal-body" id="productModalBody"></div>
+  </div>
+</div>
+
+<!-- ══════════ CHECKOUT MODAL ══════════ -->
+<div class="modal" id="checkoutModal" hidden>
+  <div class="modal-card">
+    <button class="modal-close" data-close="checkoutModal">✖</button>
+    <div class="modal-body">
+      <h3>📦 Checkout</h3>
+      <div class="order-summary" id="orderSummary"></div>
+      <form id="checkoutForm">
+        <input type="text" id="coName" placeholder="Full name" required>
+        <input type="tel" id="coPhone" placeholder="Phone number" required>
+        <textarea id="coAddress" rows="3" placeholder="Delivery address" required></textarea>
+        <button type="submit" class="btn btn-primary btn-block">Place Order ✔</button>
+        <button type="button" class="btn btn-ghost btn-block" id="checkoutWhatsApp">💬 Place Order via WhatsApp</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ ORDER CONFIRMATION MODAL ══════════ -->
+<div class="modal" id="confirmModal" hidden>
+  <div class="modal-card confirm-card">
+    <div class="confirm-icon">✔</div>
+    <h3>Order Placed Successfully!</h3>
+    <p>Thank you for shopping with FLARM. Your order number is:</p>
+    <div class="order-code" id="orderCodeText"></div>
+    <p class="muted">Save this number — you'll use it to track your order. We'll also contact you on your phone to confirm delivery details.</p>
+    <div class="confirm-btns">
+      <a href="#track" class="btn btn-primary" id="confirmTrackBtn">Track My Order</a>
+      <button class="btn btn-outline" data-close="confirmModal">Continue Shopping</button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating WhatsApp -->
+<a href="#" class="float-whatsapp" id="floatWhatsapp" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="supabase-config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
