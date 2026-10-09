@@ -16,8 +16,8 @@ const DEFAULT_PRODUCTS = [
 ];
 const DEFAULT_SETTINGS = {
   email:"flarmnaturalhealthcare@gmail.com",
-  phone:"+234 810 123 4567",
-  whatsapp:"2348101234567",
+  phone:"+234 708 379 4291",
+  whatsapp:"2347083794291",
   location:"Shop 67 Adamashingba Sport Complex, opposite Recreation Club, Sabo Road, Ibadan",
   heroTitle:"Natural Wellness. Healthier Families. Stronger Communities.",
   heroSub:"We remain committed to delivering premium natural health products that support healthier families, stronger communities, and a better quality of life."
@@ -42,8 +42,7 @@ function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('sh
 const getProduct = id => DB.products.find(p=>p.id==id);
 
 /* ─── Settings column mapping (snake_case in DB ↔ camelCode here) ─── */
-const mapSettingsFrom = r => ({ email:r.email, phone:r.phone, whatsapp:r.whatsapp, location:r.location, heroTitle:r.hero_title||'', heroSub:r.hero_sub||'' });
-
+const mapSettingsFrom = r => ({ email: r.email, phone: r.phone, whatsapp: r.whatsapp, location: r.location, heroTitle: r.hero_title?.trim() || DEFAULT_SETTINGS.heroTitle, heroSub: r.hero_sub?.trim() || DEFAULT_SETTINGS.heroSub });
 /* ─── Load products + settings from Supabase (localStorage cache = offline fallback) ─── */
 async function loadFromSupabase(){
   if(!SB_READY){
@@ -65,14 +64,6 @@ async function loadFromSupabase(){
         if(cached){ DB.products = cached.products||[]; DB.settings = {...DEFAULT_SETTINGS, ...(cached.settings||{})}; }
       }catch(e){}
     }
-    /* Seed default products on the very first run (only ever happens once) */
-    if(SB_READY && !DB.products.length && !localStorage.getItem('flarm_seeded')){
-      try{
-        localStorage.setItem('flarm_seeded','1');
-        await sb.from('products').insert(DEFAULT_PRODUCTS);
-        await loadFromSupabase();
-      }catch(e){ console.warn('Seeding failed:', e); }
-    }
   }
 }
 
@@ -87,8 +78,8 @@ function applySettings(){
   const wa = `https://wa.me/${String(s.whatsapp).replace(/\D/g,'')}`;
   $('#whatsappBtn').href = wa; $('#floatWhatsapp').href = wa;
   $('#contactWhatsapp').innerHTML = `<a href="${wa}" target="_blank" style="color:var(--green-700);font-weight:700">Chat now →</a>`;
-  $('#heroTitle').textContent = s.heroTitle;
-  $('#heroSub').textContent   = s.heroSub;
+ $('#heroTitle').textContent = s.heroTitle?.trim() || DEFAULT_SETTINGS.heroTitle;
+$('#heroSub').textContent = s.heroSub?.trim() || DEFAULT_SETTINGS.heroSub;
 }
 
 function productCard(p){
@@ -261,11 +252,24 @@ async function placeOrder(viaWhatsApp){
   /* Log the event for the admin dashboard (fire-and-forget) */
   sb.from('activity').insert({action:`New order ${order.code} — ${name}`}).then(()=>{});
 
-  if(viaWhatsApp){
-    const msg = `Hello FLARM GLOBAL! I would like to place an order.%0A%0A🧾 Order: ${order.code}%0A👤 Name: ${encodeURIComponent(name)}%0A📞 Phone: ${encodeURIComponent(phone)}%0A📍 Address: ${encodeURIComponent(addr)}%0A%0AItems:%0A` +
-      cart.map(i=>`• ${encodeURIComponent(getProduct(i.id)?.name||'Item')} x ${i.qty}`).join('%0A');
-    window.open(`https://wa.me/${String(DB.settings.whatsapp).replace(/\D/g,'')}?text=${msg}`,'_blank');
-  }
+  if (viaWhatsApp) {
+  const complaintsNumber = '2347083794291';
+
+  const message = `Hello FLARM GLOBAL! I would like to place an order.
+
+Order: ${order.code}
+Name: ${name}
+Phone: ${phone}
+Address: ${addr}
+
+Items:
+${cart.map(i => `${getProduct(i.id)?.name || 'Item'} x ${i.qty}`).join('\n')}`;
+
+  const whatsappURL =
+    `https://api.whatsapp.com/send?phone=${complaintsNumber}&text=${encodeURIComponent(message)}`;
+
+  window.location.href = whatsappURL;
+}
   cart=[]; saveCart(); renderCart();
   closeModal('checkoutModal');
   $('#orderCodeText').textContent = order.code;
@@ -347,11 +351,14 @@ $('#overlay').onclick     = closeCart;
 $('#checkoutBtn').onclick = openCheckout;
 $('#checkoutForm').addEventListener('submit', e=>{ e.preventDefault(); placeOrder(false); });
 $('#checkoutWhatsApp').onclick = ()=>placeOrder(true);
-$('#cartWhatsApp').onclick = ()=>{
-  if(!cart.length){ toast('Your cart is empty'); return; }
-  const msg = 'Hello FLARM GLOBAL! I would like to order:%0A' +
-    cart.map(i=>`• ${encodeURIComponent(getProduct(i.id)?.name||'Item')} x ${i.qty}`).join('%0A');
-  window.open(`https://wa.me/${String(DB.settings.whatsapp).replace(/\D/g,'')}?text=${msg}`,'_blank');
+$('#cartWhatsApp').onclick = () => {
+  if (!cart.length) {
+    toast('Your cart is empty');
+    return;
+  }
+
+  // Collect customer details before creating the order.
+  openCheckout();
 };
 
 /* Search & filters */
